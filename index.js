@@ -2,7 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 const { Telegraf } = require("telegraf");
 const { message } = require("telegraf/filters");
-const { consultas, agendamento, greetings, verConsultas, confirmar } = require("./intents");
+const { consultas, naoRegistrar, registrar, greetings, verConsultas, confirmar, naoMarcar } = require("./intents");
 const { parse, format, addDays, addWeeks, addYears, isValid } = require('date-fns');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
@@ -11,46 +11,52 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 const userData = {};
 
 const parseDateInput = (input) => {
-  // Expressões para identificar diferentes tipos de datas
-  const relativeDayPattern = /^daqui (\d+) dias?$/;
-  const relativeWeekPattern = /^daqui (\d+) semanas?$/;
-  const relativeYearPattern = /^daqui (\d+) anos?$/;
-
-  // Verificar se é uma data relativa (daqui X dias, semanas ou anos)
-  let match = input.match(relativeDayPattern);
-  if (match) {
-      const days = parseInt(match[1], 10);
-      return addDays(new Date(), days);
-  }
-
-  match = input.match(relativeWeekPattern);
-  if (match) {
-      const weeks = parseInt(match[1], 10);
-      return addWeeks(new Date(), weeks);
-  }
-
-  match = input.match(relativeYearPattern);
-  if (match) {
-      const years = parseInt(match[1], 10);
-      return addYears(new Date(), years);
-  }
-
-  // Tentar analisar a data como uma data específica no formato brasileiro
-  const date = parse(input, 'dd/MM/yyyy', new Date());
-
-  // Verificar se a data é válida
-  if (isValid(date)) {
-      return date;
-  }
-
-  // Se nenhuma expressão for reconhecida, retorne null
-  return null;
-};
+    // Expressões para identificar diferentes tipos de datas
+    const relativeDayPattern = /^daqui (\d+) dias?$/;
+    const relativeWeekPattern = /^daqui (\d+) semanas?$/;
+    const relativeYearPattern = /^daqui (\d+) anos?$/;
+    const brazilianDatePattern = /^(\d{2})\/(\d{2})$/;
+  
+    // Verificar se é uma data relativa (daqui X dias, semanas ou anos)
+    let match = input.match(relativeDayPattern);
+    if (match) {
+        const days = parseInt(match[1], 10);
+        return addDays(new Date(), days);
+    }
+  
+    match = input.match(relativeWeekPattern);
+    if (match) {
+        const weeks = parseInt(match[1], 10);
+        return addWeeks(new Date(), weeks);
+    }
+  
+    match = input.match(relativeYearPattern);
+    if (match) {
+        const years = parseInt(match[1], 10);
+        return addYears(new Date(), years);
+    }
+  
+    // Verificar se é uma data no formato brasileiro
+    match = input.match(brazilianDatePattern);
+    if (match) {
+        const day = parseInt(match[1], 10);
+        const month = parseInt(match[2], 10);
+        const currentYear = new Date().getFullYear();
+        const inputDate = new Date(currentYear, month - 1, day);
+        if (!isNaN(inputDate.getDate()) && (inputDate.getMonth() + 1 === month)) {
+            return inputDate;
+        }
+    }
+  
+    // Se nenhuma expressão for reconhecida, retorne null
+    return null;
+  };
+  
 
 // Função para verificar se um número de telefone é válido
 const isUser = async (phone) => {
     try {
-        const response = await axios.get(`https://sheetdb.io/api/v1/paxkr380uxtlv/search?sheet=users&phone=*${phone}*`);
+        const response = await axios.get(`https://sheetdb.io/api/v1/nekg83yxrffs7/search?sheet=users&phone=*${phone}*`);
         const userDetails = response.data;
         return userDetails.length > 0 ? userDetails[0] : null;
     } catch (error) {
@@ -85,34 +91,7 @@ bot.on(message('text'), async (ctx) => {
         return;
     }
 
-    // Verifica se o usuário está respondendo a uma solicitação de cadastro
-    if (state === 'cadastro') {
-        if (userMsg === 'sim') {
-            // Lógica para iniciar o processo de cadastro
-            const { phone, name } = userData[userId];
-            try {
-                await axios.post(
-                    'https://sheetdb.io/api/v1/paxkr380uxtlv?sheet=users',
-                    {
-                        phone: phone,
-                        name: name,
-                        created: new Date().toISOString()
-                    }
-                );
-                ctx.reply('Cadastro realizado com sucesso! Informe a especialidade que deseja marcar a consulta');
-                userData[userId].state = 'valid';
-            } catch (error) {
-                console.error('Erro ao enviar dados de cadastro:', error);
-                ctx.reply('Ocorreu um erro ao tentar realizar o cadastro. Por favor, tente novamente mais tarde.');
-            }
-        } else if (userMsg === 'não' || userMsg === 'nao') {
-            ctx.reply('Ok, o cadastro foi cancelado. Por favor, informe novamente seu número de telefone.');
-            userData[userId].state = 'start';
-        } else {
-            ctx.reply('Por favor, responda com "sim" ou "não".');
-        }
-        return;
-    }
+    
 
     // Lógica para verificar se o número de telefone é válido
     if (state === 'start') {
@@ -130,6 +109,35 @@ bot.on(message('text'), async (ctx) => {
         return;
     }
 
+    // Verifica se o usuário está respondendo a uma solicitação de cadastro
+    if (state === 'cadastro') {
+        if (registrar.includes(userMsg)) {
+            // Lógica para iniciar o processo de cadastro
+            const { phone, name } = userData[userId];
+            try {
+                await axios.post(
+                    'https://sheetdb.io/api/v1/nekg83yxrffs7?sheet=users',
+                    {
+                        phone: phone,
+                        name: name,
+                        created: new Date().toISOString()
+                    }
+                );
+                ctx.reply('Cadastro realizado com sucesso! Deseja marcar uma nova consulta?');
+                userData[userId].state = 'valid';
+            } catch (error) {
+                console.error('Erro ao enviar dados de cadastro:', error);
+                ctx.reply('Ocorreu um erro ao tentar realizar o cadastro. Por favor, tente novamente mais tarde.');
+            }
+        } else if (naoRegistrar.includes(userMsg)) {
+            ctx.reply('Ok, o cadastro foi cancelado. Por favor, informe novamente seu número de telefone.');
+            userData[userId].state = 'start';
+        } else {
+            ctx.reply('Por favor, responda com "sim" ou "não".');
+        }
+        return;
+    }
+
     if (state === 'valid') {
         if (consultas?.includes(userMsg)) {
             ctx.reply('Qual especialidade deseja marcar?');
@@ -137,7 +145,7 @@ bot.on(message('text'), async (ctx) => {
         } else if (verConsultas?.includes(userMsg)) {
             try {
                 const { phone } = userData[userId];
-                const res = await axios.get(`https://sheetdb.io/api/v1/paxkr380uxtlv/search?sheet=consultas&phone=*${phone}*`);
+                const res = await axios.get(`https://sheetdb.io/api/v1/nekg83yxrffs7/search?sheet=consultas&phone=*${phone}*`);
                 const consult = res.data;
 
                 if (consult && consult.length > 0) {
@@ -149,11 +157,14 @@ bot.on(message('text'), async (ctx) => {
                 console.error('Erro ao consultar as consultas:', error);
             }
         }
+        else if (naoMarcar) {
+            ctx.reply('Ok, so consigo te ajudar a marcar e ver consultas, em caso de outros problemas faça contato conosco no telefone (70)7070-7070')
+        }
     }
 
     if (state === 'selecionar') {
         try {
-            const res = await axios.get(`https://sheetdb.io/api/v1/paxkr380uxtlv/search?services=*${userMsg}*`);
+            const res = await axios.get(`https://sheetdb.io/api/v1/nekg83yxrffs7/search?services=*${userMsg}*`);
             const doctor = res.data[0];
             
             if (doctor) {
@@ -190,7 +201,7 @@ bot.on(message('text'), async (ctx) => {
         const { phone } = userData[userId];
         try {
           await axios.post(
-            'https://sheetdb.io/api/v1/paxkr380uxtlv?sheet=consultas',
+            'https://sheetdb.io/api/v1/nekg83yxrffs7?sheet=consultas',
             {
                 doctor: userData[userId].doctor,
                 phone: phone,
@@ -209,6 +220,7 @@ bot.on(message('text'), async (ctx) => {
       }
     }
 });
+
 
 bot.launch();
 console.log("Bot launched...");
