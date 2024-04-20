@@ -201,7 +201,7 @@ bot.on(message('text'), async (ctx) => {
             }
         );
         userData[userId].state = 'valid';
-          ctx.reply('Consulta marcada, até mais, qualquer duvida estou à disposição');
+          ctx.reply('Consulta marcada, até mais, qualquer duvida estou à disposição!');
         } catch (error) {
           console.log(error);
         }
