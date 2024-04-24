@@ -13,6 +13,27 @@ const greetings = [
   'Oi.',
   'Oi, tudo bem?',
   'marcar',
+  // Novas variações
+  'olá',
+  'E aí?',
+  'Oi, como vai?',
+  'Olá, tudo bem?',
+  'Olá, boa tarde',
+  'E aí, tudo tranquilo?',
+  'Bom dia!',
+  'Boa tarde!',
+  'Boa noite!',
+  'Oi, bom dia!',
+  'Oi, boa tarde!',
+  'Oi, boa noite!',
+  'Como está?',
+  'Tudo bem contigo?',
+  'Oi, como você está?',
+  'Oi, como vai você?',
+  'E aí, como está?',
+  'Olá, como vai?',
+  'Ei!',
+  'Oi, tem alguém aí?',
 ];
 
 //desejea cadastrar => sim / registrar
@@ -24,6 +45,29 @@ const registrar = [
   'registrar',
   'sim',
   'reg',
+  // Novas variações
+  'cadastro',
+  'criar conta',
+  'novo cadastro',
+  'quero me cadastrar',
+  'cadastrar',
+  'inscrever-se',
+  'novo usuário',
+  'registrar-se',
+  'criar perfil',
+  'sim, por favor',
+  'vou me registrar',
+  'quero participar',
+  'começar',
+  'iniciar',
+  'criar uma conta',
+  'criar login',
+  'efetuar cadastro',
+  'inscrição',
+  'quero fazer parte',
+  'quero entrar',
+  'quero ser membro',
+  'quero fazer o cadastro',
 ];
 
 //deseja cadastrar => nao / cancelar registro
@@ -38,8 +82,28 @@ const naoRegistrar = [
   'encerrar',
   'não registrar',
   'nao',
+  // Novas variações
+  'não quero',
+  'não desejo',
+  'não, obrigado',
+  'não, valeu',
+  'não, obrigada',
+  'não, estou bem',
+  'não preciso',
+  'não é necessário',
+  'não é pra mim',
+  'não, já tenho conta',
+  'já sou cadastrado',
+  'não hoje',
+  'não agora',
+  'não quero me cadastrar',
+  'não, obrigado mesmo',
+  'não, obrigada pela oferta',
+  'não, estou ocupado',
+  'não, estou ocupada',
+  'não, obrigado, estou só olhando',
+  'não, sem interesse',
 ];
-
 
 //marcar consulta
 const consultas = [
@@ -59,8 +123,27 @@ const consultas = [
   'quero',
   'quer',
   'claro',
+  // Novas variações
+  'marcar hora',
+  'marcar horário',
+  'marcar reunião',
+  'consultar disponibilidade',
+  'marcar compromisso',
+  'agendar horário',
+  'agendar compromisso',
+  'consultar agenda',
+  'reservar horário',
+  'reservar consulta',
+  'fazer agendamento',
+  'solicitar horário',
+  'solicitar consulta',
+  'marcar sessão',
+  'agendar sessão',
+  'reservar sessão',
+  'quero marcar',
+  'quero agendar',
+  'quero fazer uma consulta',
 ];
-
 
 //ver consulta
 const verConsultas = [
@@ -75,8 +158,26 @@ const verConsultas = [
   'mostrar',
   'ver consulta',
   'marcada',
+  // Novas variações
+  'visualizar',
+  'verificar',
+  'exibir',
+  'verificar consultas',
+  'verificar compromissos',
+  'verificar agendamentos',
+  'verificar horários',
+  'mostrar consultas',
+  'mostrar agendamentos',
+  'ver histórico de consultas',
+  'consultar histórico',
+  'verificar consultas marcadas',
+  'mostrar consultas agendadas',
+  'ver consultas pendentes',
+  'ver consultas confirmadas',
+  'ver minhas marcações',
+  'ver meus agendamentos',
+  'ver minhas reservas',
 ];
-
 
 //confirmar a consulta => sim
 const confirmar = [
@@ -88,8 +189,29 @@ const confirmar = [
   'marcar consulta',
   'sim, marcar',
   'agendar consulta',
-  'marcar uma nova consulta'
-]
+  'marcar uma nova consulta',
+  // Novas variações
+  'confirmo',
+  'confirmado',
+  'sim, por favor',
+  'sim, claro',
+  'ok',
+  'tudo certo',
+  'certo',
+  'confirmado com sucesso',
+  'fechar',
+  'concluir',
+  'validar',
+  'aceitar',
+  'agende',
+  'marque',
+  'sim, quero',
+  'sim, desejo',
+  'marque para mim',
+  'agende para mim',
+  'marque agora',
+  'agende agora',
+];
 
 //confirmar a consulta => nao
 const naoMarcar = [
@@ -103,7 +225,65 @@ const naoMarcar = [
   'encerrar',
   'não registrar',
   'nao',
-]
+  // Novas variações
+  'não confirmo',
+  'não confirmado',
+  'não quero',
+  'não desejo',
+  'não, obrigado',
+  'não, valeu',
+  'não, obrigada',
+  'não, estou bem',
+  'não preciso',
+  'não é necessário',
+  'não é pra mim',
+  'não, obrigado mesmo',
+  'não, obrigada pela oferta',
+  'não, estou ocupado',
+  'não, estou ocupada',
+  'não, obrigado, estou só olhando',
+  'não, sem interesse',
+  'não agora',
+  'não, obrigado, já estou agendado',
+  'não, já tenho consulta',
+];
+
+const encerrar = [
+  'encerrar',
+  'terminar',
+  'finalizar',
+  'fechar',
+  'sair',
+  'cancelar',
+  'parar',
+  'adeus',
+  'até logo',
+  'sair do chat',
+  'sair da conversa',
+  'desligar',
+  'encerrar chat',
+  'encerrar conversa',
+  'adeus',
+  'fim',
+  'cancelar operação',
+  'voltar mais tarde',
+  'cancelar ação',
+  'sair agora',
+  'concluir',
+  'despedir',
+  'deixar',
+  'sair do sistema',
+  'terminar sessão',
+  'encerrar aplicativo',
+  'voltar ao menu principal',
+  'cancelar tudo',
+  'desconectar',
+  'voltar mais tarde',
+  'não quero mais',
+  'cancelar agora',
+  'sair daqui',
+  'dizer tchau',
+];
 
 // Exporte as listas para uso em outros arquivos usando CommonJS
 module.exports = {
@@ -113,5 +293,6 @@ module.exports = {
   greetings,
   verConsultas,
   confirmar, 
-  naoMarcar
+  naoMarcar,
+  encerrar
 };

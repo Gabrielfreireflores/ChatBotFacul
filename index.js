@@ -2,12 +2,11 @@ require("dotenv").config();
 const axios = require("axios");
 const { Telegraf } = require("telegraf");
 const { message } = require("telegraf/filters");
-const { consultas, naoRegistrar, registrar, greetings, verConsultas, confirmar, naoMarcar } = require("./intents");
+const { consultas, naoRegistrar, registrar, greetings, verConsultas, confirmar, naoMarcar, encerrar } = require("./intents");
 const { parse, format, addDays, addWeeks, addYears, isValid } = require('date-fns');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-// Objeto para armazenar dados do usuário
 const userData = {};
 
 const parseDateInput = (input) => {
@@ -52,7 +51,6 @@ const parseDateInput = (input) => {
     return null;
   };
   
-
 // Função para verificar se um número de telefone é válido
 const isUser = async (phone) => {
     try {
@@ -91,7 +89,11 @@ bot.on(message('text'), async (ctx) => {
         return;
     }
 
-    
+    if (encerrar?.includes(userMsg)) {
+        userData[userId].state = 'start';
+        ctx.reply(`Obrigado! Tenha um bom dia.`);
+        return;
+    }
 
     // Lógica para verificar se o número de telefone é válido
     if (state === 'start') {
@@ -212,7 +214,7 @@ bot.on(message('text'), async (ctx) => {
             }
         );
         userData[userId].state = 'valid';
-          ctx.reply('Consulta marcada, até mais, qualquer duvida estou à disposição!');
+          ctx.reply('Consulta marcada, deseja marcar uma nova consulta, ver suas consultas, ou encerrar o atendimento?');
         } catch (error) {
           console.log(error);
         }
