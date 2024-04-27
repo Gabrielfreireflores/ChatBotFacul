@@ -60,6 +60,19 @@ const parseDateInput = (input) => {
 };
 
 
+
+const isPhone = (userPhone) => {
+    const regexTelefone1 = /^\+55 \(\d{2}\) \d{4,5}-\d{4}$/;
+    const regexTelefone2 = /^\(\d{2}\) \d{4,5}-\d{4}$/;
+    const regexTelefone3 = /^\d{4,5}-\d{4}$/;
+    if( regexTelefone1.test(userPhone) || regexTelefone2.test(userPhone) || regexTelefone3.test(userPhone)){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 // Função para verificar se um número de telefone é válido
 const isUser = async (phone) => {
     try {
@@ -75,12 +88,12 @@ const isUser = async (phone) => {
 // Função para iniciar a conversa com mensagens como "oi", "ola", ou "oi tudo bem"
 bot.on(message('text'), async (ctx) => {
     const userId = ctx.from.id;
-    const userMsg = ctx.message.text.toLowerCase();
+    const userMsg = ctx.message.text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
     // Inicializar dados do usuário caso ainda não existam
     if (!userData[userId]) {
         userData[userId] = {
-            state: 'init',
+            state: '',
             phone: '',
             name: ctx.from.first_name,
             doctor: '',
@@ -92,7 +105,7 @@ bot.on(message('text'), async (ctx) => {
     const { state } = userData[userId];
 
     // Verifica se a mensagem é um cumprimento para iniciar a conversa
-    if (greetings?.includes(userMsg) ||  userData[userId].state === 'init') {
+    if (greetings?.includes(userMsg)) {
         userData[userId].state = 'start';
         ctx.reply(`Olá ${ctx.from.first_name}, seja bem-vindo à Clínica Viver Bem! Por favor, me informe seu número de telefone.`);
         return;
@@ -109,14 +122,16 @@ bot.on(message('text'), async (ctx) => {
     // Lógica para verificar se o número de telefone é válido
     if (state === 'start') {
         const userDetails = await isUser(userMsg);
+        
         if (userDetails) {
-            userData[userId].phone = userMsg;
+            
             userData[userId].name = userDetails.name;
             ctx.reply(`Deseja marcar uma nova consulta ou ver as consultas já marcadas?`);
             userData[userId].state = 'valid';
-        } else {
+        } 
+        else {
             userData[userId].phone = userMsg;
-            ctx.reply('Número de telefone não encontrado. Gostaria de se cadastrar? Responda com "sim" ou "não".');
+            ctx.reply('Número de telefone não cadastrado. Gostaria de se cadastrar?');
             userData[userId].state = 'cadastro';
         }
         return;
@@ -153,7 +168,7 @@ bot.on(message('text'), async (ctx) => {
 
     if (state === 'valid') {
         if (consultas?.includes(userMsg)) {
-          ctx.reply(`Qual especialidade deseja marcar, as opções são: \n- Cardiologia \n- Ortopedia \n- Plástica \n- Clínica geral \n- Neurologia \n- Osteopatia \n- Urologia`);
+          ctx.reply(`Qual especialidade deseja marcar? \nAs opções são: \n- Cardiologia \n- Ortopedia \n- Plástica \n- Clínica geral \n- Neurologia \n- Osteopatia \n- Urologia`);
            
         userData[userId].state = 'selecionar';
         } else if (verConsultas?.includes(userMsg)) {
@@ -170,7 +185,7 @@ bot.on(message('text'), async (ctx) => {
                             if (index === consult.length - 1) {
                                 todasConsultasProcessadas = true;
                                 if (todasConsultasProcessadas) {
-                                    ctx.reply('Deseja marcar uma nova ou encerrar a conversa?');
+                                    ctx.reply(`Deseja marcar uma nova ou encerrar a conversa?`);
                                 }
                             }
                         });
@@ -183,13 +198,14 @@ bot.on(message('text'), async (ctx) => {
             }
         }
         else if (naoMarcar) {
-            ctx.reply('Ok, so consigo te ajudar a marcar e ver consultas, em caso de outros problemas faça contato conosco no telefone (70)7070-7070')
+            ctx.reply('Só consigo te ajudar a marcar e ver consultas, deseja marcar ou ver suas consultas? \nEm caso de outros problemas faça contato conosco no telefone (16)99291-2781')
+            userData[userId].state = 'valid';
         }
     }
 
     if (state === 'selecionar') {
         try {
-            const res = await axios.get(`https://sheetdb.io/api/v1/nekg83yxrffs7/search?services=*${userMsg.normalize('NFD').replace(/[\u0300-\u036f]/g, '')}*`);
+            const res = await axios.get(`https://sheetdb.io/api/v1/nekg83yxrffs7/search?services=*${userMsg}*`);
             const doctor = res.data[0];
             
             if (doctor) {
@@ -198,7 +214,7 @@ bot.on(message('text'), async (ctx) => {
                 userData[userId].service = userMsg;
                 userData[userId].state = 'data';
             } else {
-                ctx.reply('Especialidade não disponível, selecione uma da lista informada');
+                ctx.reply('Especialidade não disponível, selecione apenas uma da lista informada');
             }
         } catch (error) {
             console.error('Erro ao consultar os médicos:', error);
@@ -237,11 +253,16 @@ bot.on(message('text'), async (ctx) => {
             }
         );
         userData[userId].state = 'valid';
-          ctx.reply('Consulta marcada, deseja ver suas consultas ou encerrar a conversa?');
+          ctx.reply(`Consulta marcada, deseja ver suas consultas ou encerrar a conversa?`);
         } catch (error) {
           console.log(error);
         }
         
+      }
+
+      else if( naoMarcar.includes(userMsg)){
+        ctx.reply('Deseja marcar uma outra consulta, ver as consultas marcadas ou encerrar o agendamento?')
+        userData[userId].state = 'valid';
       }
     }
 });
