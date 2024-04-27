@@ -13,7 +13,6 @@ const greetings = [
   "Oi.",
   "Oi, tudo bem?",
   "marcar",
-  // Novas variações
   "olá",
   "E aí?",
   "Oi, como vai?",
@@ -34,7 +33,6 @@ const greetings = [
   "Olá, como vai?",
   "Ei!",
   "Oi, tem alguém aí?",
-  //Ainda mais variações
   "Olaaa",
   "Ooiii",
   "Oláááá",
@@ -243,6 +241,8 @@ const greetings = [
   "Opa, eai?",
   "Opa, tdo bem?",
   "Oiai, tudo joia?",
+  "oieee",
+  'salve quebrada'
 ];
 
 //desejea cadastrar => sim / registrar
@@ -254,7 +254,6 @@ const registrar = [
   "registrar",
   "sim",
   "reg",
-  // Novas variações
   "cadastro",
   "criar conta",
   "novo cadastro",
@@ -277,7 +276,7 @@ const registrar = [
   "quero entrar",
   "quero ser membro",
   "quero fazer o cadastro",
-  // Ainda mais variações
+  "/start",
   "registro novo",
   "abrir conta",
   "fazer cadastro",
@@ -481,7 +480,8 @@ const registrar = [
   "quero fazer parte",
   "quero entrar",
   "quero ser membro",
-  "quero fazer o cadastro"
+  "quero fazer o cadastro",
+  
 ];
 
 //deseja cadastrar => nao / cancelar registro
