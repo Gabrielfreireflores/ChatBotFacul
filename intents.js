@@ -12,7 +12,6 @@ const greetings = [
   "Oi!",
   "Oi.",
   "Oi, tudo bem?",
-  "marcar",
   "olá",
   "E aí?",
   "Oi, como vai?",
@@ -242,7 +241,10 @@ const greetings = [
   "Opa, tdo bem?",
   "Oiai, tudo joia?",
   "oieee",
-  'salve quebrada'
+  "salve quebrada",
+  "eae mano, blz?",
+  "eae mano blz",
+  "suave?",
 ];
 
 //desejea cadastrar => sim / registrar
@@ -253,6 +255,7 @@ const registrar = [
   "quero registrar",
   "registrar",
   "sim",
+  "cadstrar",
   "reg",
   "cadastro",
   "criar conta",
@@ -382,7 +385,6 @@ const registrar = [
   "criar conta",
   "novo cadastro",
   "quero me cadastrar",
-  "cadastrar",
   "inscrever-se",
   "novo usuário",
   "registrar-se",
@@ -406,7 +408,6 @@ const registrar = [
   "quero resgistrar",
   "registrarr",
   "simm",
-  "erg",
   "cadasrto",
   "criar contaa",
   "cadraastro",
@@ -433,7 +434,6 @@ const registrar = [
   "quero resgistrar",
   "registrarr",
   "simm",
-  "erg",
   "cadasrto",
   "criaar contaa",
   "cadraastro",
@@ -460,7 +460,6 @@ const registrar = [
   "quero resgistrar",
   "registrarr",
   "simm",
-  "erg",
   "cadasrto",
   "criaar contaa",
   "cadraastro",
@@ -481,7 +480,7 @@ const registrar = [
   "quero entrar",
   "quero ser membro",
   "quero fazer o cadastro",
-  
+  "claro",
 ];
 
 //deseja cadastrar => nao / cancelar registro
@@ -591,6 +590,9 @@ const verConsultas = [
   "ver minhas marcações",
   "ver meus agendamentos",
   "ver minhas reservas",
+  "marcadas",
+  "ver consultas",
+  ""
 ];
 
 //confirmar a consulta => sim
