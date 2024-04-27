@@ -2,11 +2,12 @@ require("dotenv").config();
 const axios = require("axios");
 const { Telegraf } = require("telegraf");
 const { message } = require("telegraf/filters");
-const { consultas, naoRegistrar, registrar, greetings, verConsultas, confirmar, naoMarcar, encerrar } = require("./intents");
+const { consultas, naoRegistrar, registrar, greetings, verConsultas, confirmar, naoMarcar, listarEspecialidades, encerrar } = require("./intents");
 const { parse, format, addDays, addWeeks, addYears, isValid } = require('date-fns');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
+// Objeto para armazenar dados do usuário
 const userData = {};
 
 const parseDateInput = (input) => {
@@ -15,26 +16,27 @@ const parseDateInput = (input) => {
     const relativeWeekPattern = /^daqui (\d+) semanas?$/;
     const relativeYearPattern = /^daqui (\d+) anos?$/;
     const brazilianDatePattern = /^(\d{2})\/(\d{2})$/;
-  
-    // Verificar se é uma data relativa (daqui X dias, semanas ou anos)
+    const tomorrowPattern = /^(?:amanhã|tomorrow)$/i; // New pattern for "amanhã"
+
+    // Verificar se é uma data relativa (daqui X dias, semanas, anos ou amanhã)
     let match = input.match(relativeDayPattern);
     if (match) {
         const days = parseInt(match[1], 10);
         return addDays(new Date(), days);
     }
-  
+
     match = input.match(relativeWeekPattern);
     if (match) {
         const weeks = parseInt(match[1], 10);
         return addWeeks(new Date(), weeks);
     }
-  
+
     match = input.match(relativeYearPattern);
     if (match) {
         const years = parseInt(match[1], 10);
         return addYears(new Date(), years);
     }
-  
+
     // Verificar se é uma data no formato brasileiro
     match = input.match(brazilianDatePattern);
     if (match) {
@@ -46,11 +48,18 @@ const parseDateInput = (input) => {
             return inputDate;
         }
     }
-  
+
+    // Verificar se é "amanhã"
+    match = input.match(tomorrowPattern);
+    if (match) {
+        return addDays(new Date(), 1); // Retorna a data de amanhã
+    }
+
     // Se nenhuma expressão for reconhecida, retorne null
     return null;
-  };
-  
+};
+
+
 // Função para verificar se um número de telefone é válido
 const isUser = async (phone) => {
     try {
@@ -71,7 +80,7 @@ bot.on(message('text'), async (ctx) => {
     // Inicializar dados do usuário caso ainda não existam
     if (!userData[userId]) {
         userData[userId] = {
-            state: 'start',
+            state: 'init',
             phone: '',
             name: ctx.from.first_name,
             doctor: '',
@@ -83,17 +92,19 @@ bot.on(message('text'), async (ctx) => {
     const { state } = userData[userId];
 
     // Verifica se a mensagem é um cumprimento para iniciar a conversa
-    if (greetings?.includes(userMsg)) {
+    if (greetings?.includes(userMsg) ||  userData[userId].state === 'init') {
         userData[userId].state = 'start';
         ctx.reply(`Olá ${ctx.from.first_name}, seja bem-vindo à Clínica Viver Bem! Por favor, me informe seu número de telefone.`);
         return;
     }
 
-    if (encerrar?.includes(userMsg)) {
-        userData[userId].state = 'start';
-        ctx.reply(`Obrigado! Tenha um bom dia.`);
+    if (encerrar.includes(userMsg)) {
+        userData[userId].state = 'init';
+        ctx.reply(`Muito obrigado, precisando de ajuda, estamos a disposição`);
         return;
     }
+
+    
 
     // Lógica para verificar se o número de telefone é válido
     if (state === 'start') {
@@ -101,7 +112,7 @@ bot.on(message('text'), async (ctx) => {
         if (userDetails) {
             userData[userId].phone = userMsg;
             userData[userId].name = userDetails.name;
-            ctx.reply(`Olá ${userDetails.name}! Deseja marcar uma nova consulta ou ver as consultas já marcadas?`);
+            ctx.reply(`Deseja marcar uma nova consulta ou ver as consultas já marcadas?`);
             userData[userId].state = 'valid';
         } else {
             userData[userId].phone = userMsg;
@@ -142,8 +153,9 @@ bot.on(message('text'), async (ctx) => {
 
     if (state === 'valid') {
         if (consultas?.includes(userMsg)) {
-            ctx.reply('Qual especialidade deseja marcar?');
-            userData[userId].state = 'selecionar';
+          ctx.reply(`Qual especialidade deseja marcar, as opções são: \n- Cardiologia \n- Ortopedia \n- Plástica \n- Clínica geral \n- Neurologia \n- Osteopatia \n- Urologia`);
+           
+        userData[userId].state = 'selecionar';
         } else if (verConsultas?.includes(userMsg)) {
             try {
                 const { phone } = userData[userId];
@@ -151,7 +163,18 @@ bot.on(message('text'), async (ctx) => {
                 const consult = res.data;
 
                 if (consult && consult.length > 0) {
-                    consult.forEach(con => ctx.reply(`Consulta marcada no dia ${format(con.date, 'dd/MM/yyyy')} com ${con.doctor} especialista em ${con.services}.`));
+                    let todasConsultasProcessadas = false;
+                    consult.forEach((con, index) => {
+                        ctx.reply(`Consulta marcada no dia ${format(con.date, 'dd/MM')} com ${con.doctor} especialista em ${con.services}.`)
+                        .then(() => {
+                            if (index === consult.length - 1) {
+                                todasConsultasProcessadas = true;
+                                if (todasConsultasProcessadas) {
+                                    ctx.reply('Deseja marcar uma nova ou encerrar a conversa?');
+                                }
+                            }
+                        });
+                    });
                 } else {
                     ctx.reply('Nenhuma consulta marcada, deseja marcar uma nova?');
                 }
@@ -166,16 +189,16 @@ bot.on(message('text'), async (ctx) => {
 
     if (state === 'selecionar') {
         try {
-            const res = await axios.get(`https://sheetdb.io/api/v1/nekg83yxrffs7/search?services=*${userMsg}*`);
+            const res = await axios.get(`https://sheetdb.io/api/v1/nekg83yxrffs7/search?services=*${userMsg.normalize('NFD').replace(/[\u0300-\u036f]/g, '')}*`);
             const doctor = res.data[0];
             
             if (doctor) {
                 userData[userId].doctor = doctor.name;
-                ctx.reply(`Nessa especialidade temos o doutor ${doctor.name}, quando deseja agendar a consulta?`);
+                ctx.reply(`Nessa especialidade temos a doutora ${doctor.name}, quando deseja agendar a consulta? Informe a data no formato dd/MM`);
                 userData[userId].service = userMsg;
                 userData[userId].state = 'data';
             } else {
-                ctx.reply('Especialidade não encontrada. Por favor, tente novamente.');
+                ctx.reply('Especialidade não disponível, selecione uma da lista informada');
             }
         } catch (error) {
             console.error('Erro ao consultar os médicos:', error);
@@ -187,12 +210,12 @@ bot.on(message('text'), async (ctx) => {
         if (date) {
             // Armazenar a data no objeto do usuário
             userData[userId].date = date;
-            ctx.reply(`Deseja confirmar a consulta no dia: ${format(date, 'dd/MM/yyyy')} com o doutor ${userData[userId].doctor}`);
+            ctx.reply(`Deseja confirmar a consulta no dia: ${format(date, 'dd/MM')} com a doutora ${userData[userId].doctor}`);
             // Você pode mudar o estado do usuário para outro passo do processo, por exemplo
             userData[userId].state = 'confirmar';
             
         } else {
-            ctx.reply('Data não reconhecida. Por favor, insira uma data no formato "dd/MM/yyyy" ou uma expressão como "daqui 20 dias".');
+            ctx.reply('Data não reconhecida. Por favor, insira uma data no formato "dd/MM" ou uma expressão como "daqui 20 dias".');
         }
     }
 
@@ -214,7 +237,7 @@ bot.on(message('text'), async (ctx) => {
             }
         );
         userData[userId].state = 'valid';
-          ctx.reply('Consulta marcada, deseja marcar uma nova consulta, ver suas consultas, ou encerrar o atendimento?');
+          ctx.reply('Consulta marcada, deseja ver suas consultas ou encerrar a conversa?');
         } catch (error) {
           console.log(error);
         }
