@@ -495,7 +495,6 @@ const naoRegistrar = [
   "encerrar",
   "não registrar",
   "nao",
-  // Novas variações
   "não quero",
   "não desejo",
   "não, obrigado",
@@ -536,7 +535,6 @@ const consultas = [
   "quero",
   "quer",
   "claro",
-  // Novas variações
   "marcar hora",
   "marcar horário",
   "marcar reunião",
@@ -556,6 +554,7 @@ const consultas = [
   "quero marcar",
   "quero agendar",
   "quero fazer uma consulta",
+  "outra",
 ];
 
 //ver consulta
@@ -571,7 +570,6 @@ const verConsultas = [
   "mostrar",
   "ver consulta",
   "marcada",
-  // Novas variações
   "visualizar",
   "verificar",
   "exibir",
@@ -606,7 +604,6 @@ const confirmar = [
   "sim, marcar",
   "agendar consulta",
   "marcar uma nova consulta",
-  // Novas variações
   "confirmo",
   "confirmado",
   "sim, por favor",
@@ -641,7 +638,6 @@ const naoMarcar = [
   "encerrar",
   "não registrar",
   "nao",
-  // Novas variações
   "não confirmo",
   "não confirmado",
   "não quero",
@@ -662,15 +658,36 @@ const naoMarcar = [
   "não agora",
   "não, obrigado, já estou agendado",
   "não, já tenho consulta",
+  "nenhum dos dois",
+  "os dois",
+  "nenhum",
+  "nem",
+  "nop"
 ];
 
 const encerrar = [
+  "obrigado",
+  "obg",
+  "ok, obrigado",
+  "ok, obg",
+  "ok, perfeito",
+  "ok, tamo junto",
+  "ok",
+  "bjs",
+  "obri",
+  "ate mais",
+  "tchau",
+  "até",
+  "até mais",
+  "valeu",
+  "tamo junto",
+  "tmj",
   "encerrar",
   "terminar",
   "finalizar",
   "fechar",
   "sair",
-  "cancelar",
+  "cancelar atendimento",
   "parar",
   "adeus",
   "até logo",
@@ -696,9 +713,15 @@ const encerrar = [
   "desconectar",
   "voltar mais tarde",
   "não quero mais",
-  "cancelar agora",
+  "cancelar",
   "sair daqui",
   "dizer tchau",
+  "quero encerrar",
+  "quero desligar",
+  "quero sair",
+  "desisti",
+  "sai pra la",
+  "me enganei"
 ];
 
 // Exporte as listas para uso em outros arquivos usando CommonJS
