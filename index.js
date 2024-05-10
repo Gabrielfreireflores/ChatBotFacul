@@ -73,35 +73,14 @@ const parseDateInput = (input) => {
 
 
 const isPhone = (userPhone) => {
-    const regexTelefone1 = /^\+55 \(\d{2}\) \d{4,5}-\d{4}$/;
-    const regexTelefone2 = /^\(\d{2}\) \d{4,5}-\d{4}$/;
-    const regexTelefone3 = /^\d{4,5}-\d{4}$/;
-    const regexTelefone4 = /^\d{2} \d{4,5}-\d{4}$/;
-    const regexTelefone5 = /^\d{10}$/;
-    const regexTelefone6 = /^\d{5}-\d{4}$/;
-    const regexTelefone7 = /^\d{2} \d{8}$/;
-    const regexTelefone8 = /^\d{10}$/;
-    const regexTelefone9 = /^\d{11}$/;
-    const regexTelefone10 = /^\d{2} \d{9}$/;
-    const regexTelefone11 = /^\d{5} \d{4}$/;
-    const regexTelefone12 = /^\d{7} \d{4}$/;
-    const regexTelefone13 = /^\d{8} \d{4}$/;
-    const regexTelefone14 = /^\d{9} \d{4}$/;
-    const regexTelefone15 = /^\(\d{2}\)\d{5}-\d{4}$/;
-    const regexTelefone16 = /^\(\d{2}\)\d{4}-\d{4}$/;
-
-    return regexTelefone1.test(userPhone) || regexTelefone2.test(userPhone) || regexTelefone3.test(userPhone) ||
-        regexTelefone4.test(userPhone) || regexTelefone5.test(userPhone) || regexTelefone6.test(userPhone) ||
-        regexTelefone7.test(userPhone) || regexTelefone8.test(userPhone) || regexTelefone9.test(userPhone) ||
-        regexTelefone10.test(userPhone) || regexTelefone11.test(userPhone) || regexTelefone12.test(userPhone) ||
-        regexTelefone13.test(userPhone) || regexTelefone14.test(userPhone) || regexTelefone15.test(userPhone) ||
-        regexTelefone16.test(userPhone);
+    const regexTelefone = /^\(\d{2}\)\d{9}$/;
+    return regexTelefone.test(userPhone)
 }
 
 // Função para verificar se um número de telefone é válido
 const isUser = async (phone) => {
     try {
-        const response = await axios.get(`https://sheetdb.io/api/v1/nekg83yxrffs7/search?sheet=users&phone=*${phone}*`);
+        const response = await axios.get(`https://sheetdb.io/api/v1/q32y963577067/search?sheet=users&phone=*${phone}*`);
         const userDetails = response.data;
         return userDetails.length > 0 ? userDetails[0] : null;
     } catch (error) {
@@ -132,7 +111,7 @@ bot.on(message(), async (ctx) => {
     // Verifica se a mensagem é um cumprimento para iniciar a conversa
     if (userData[userId].state === 'init') {
         userData[userId].state = 'start';
-        ctx.reply(`Olá ${ctx.from.first_name}, seja bem-vindo à Clínica Viva Bem! Por favor, me informe seu número de telefone com o DDD.`);
+        ctx.reply(`Olá ${ctx.from.first_name}, seja bem-vindo à Clínica Viva Bem! Por favor, me informe seu número de telefone com o DDD no formato (XX)XXXXXXXXX.`);
         return;
     }
 
@@ -147,7 +126,7 @@ bot.on(message(), async (ctx) => {
     if (state === 'start') {
 
         if(!isPhone(userMsg)){
-            ctx.reply('Numero de telefone inválido, digite novamente por favor, no formato (XX)XXXXX-XXXX');
+            ctx.reply('Numero de telefone inválido, digite novamente por favor, no formato (XX)XXXXXXXXX');
             return;
         }
 
@@ -176,7 +155,7 @@ bot.on(message(), async (ctx) => {
             const { phone, name } = userData[userId];
             try {
                 await axios.post(
-                    'https://sheetdb.io/api/v1/nekg83yxrffs7?sheet=users',
+                    'https://sheetdb.io/api/v1/q32y963577067?sheet=users',
                     {
                         phone: phone,
                         name: name,
@@ -207,7 +186,7 @@ bot.on(message(), async (ctx) => {
         else if (verConsultas?.includes(userMsg)) {
             try {
                 const { phone } = userData[userId];
-                const res = await axios.get(`https://sheetdb.io/api/v1/nekg83yxrffs7/search?sheet=consultas&phone=*${phone}*`);
+                const res = await axios.get(`https://sheetdb.io/api/v1/q32y963577067/search?sheet=consultas&phone=*${phone}*`);
                 const consult = res.data;
 
                 if (consult && consult.length > 0) {
@@ -233,7 +212,7 @@ bot.on(message(), async (ctx) => {
 
     if (state === 'selecionar') {
         try {
-            const res = await axios.get(`https://sheetdb.io/api/v1/nekg83yxrffs7/search?services=*${userMsg}*`);
+            const res = await axios.get(`https://sheetdb.io/api/v1/q32y963577067/search?services=*${userMsg}*`);
             const doctor = res.data[0];
             
             if (doctor) {
@@ -242,7 +221,7 @@ bot.on(message(), async (ctx) => {
                 userData[userId].service = userMsg;
                 userData[userId].state = 'data';
             } else {
-                ctx.reply('Especialidade não disponível, selecione apenas uma da lista informada');
+                ctx.reply('Para marcar a consulta, me informe somente a especialidade que deseja');
             }
         } catch (error) {
             console.error('Erro ao consultar os médicos:', error);
@@ -270,7 +249,7 @@ bot.on(message(), async (ctx) => {
         const { phone } = userData[userId];
         try {
           await axios.post(
-            'https://sheetdb.io/api/v1/nekg83yxrffs7?sheet=consultas',
+            'https://sheetdb.io/api/v1/q32y963577067?sheet=consultas',
             {
                 doctor: userData[userId].doctor,
                 phone: phone,
