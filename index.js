@@ -132,6 +132,7 @@ bot.on(message(), async (ctx) => {
 
         else {
             const userDetails = await isUser(userMsg);
+            userData[userId].phone = userMsg;
             
             if (userDetails) {     
                 userData[userId].name = userDetails.name;
@@ -191,12 +192,17 @@ bot.on(message(), async (ctx) => {
 
                 if (consult && consult.length > 0) {
 
-                   consult?.forEach((con, index) => {
-                            ctx.reply(`Consulta marcada no dia ${format(con.date, 'dd/MM/yy')} com ${con.doctor} especialista em ${con.services}. ${consult.length}`)
-                    });           
-                    
+                   try{
+                    consult?.forEach((con, index) => {
+                        ctx.reply(`Consulta marcada no dia ${format(con.date, 'dd/MM/yy')} com ${con.doctor} especialista em ${con.services}.`)
+                        });   
+                   }
+                   finally {
+                        ctx.reply("Deseja marcar uma nova ou encerrar a conversa?"); 
+                   }        
+                       
                     userData[userId].state = 'valid';  
-                    ctx.reply("Deseja marcar uma nova ou encerrar a conversa?");          
+                          
                 } else {
                     ctx.reply('Nenhuma consulta marcada, deseja marcar uma nova?');
                 }
@@ -221,7 +227,7 @@ bot.on(message(), async (ctx) => {
                 userData[userId].service = userMsg;
                 userData[userId].state = 'data';
             } else {
-                ctx.reply('Para marcar a consulta, me informe somente a especialidade que deseja');
+                ctx.reply('Para marcar a consulta, me informe somente a especialidade que deseja, exemplo: "Cardiologia');
             }
         } catch (error) {
             console.error('Erro ao consultar os médicos:', error);
