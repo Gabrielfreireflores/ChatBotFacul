@@ -80,7 +80,7 @@ const isPhone = (userPhone) => {
 // Função para verificar se um número de telefone é válido
 const isUser = async (phone) => {
     try {
-        const response = await axios.get(`https://sheetdb.io/api/v1/q32y963577067/search?sheet=users&phone=*${phone}*`);
+        const response = await axios.get(`https://sheetdb.io/api/v1/egkgu3ao6kbp2/search?sheet=users&phone=*${phone}*`);
         const userDetails = response.data;
         return userDetails.length > 0 ? userDetails[0] : null;
     } catch (error) {
@@ -156,13 +156,13 @@ bot.on(message(), async (ctx) => {
             const { phone, name } = userData[userId];
             try {
                 await axios.post(
-                    'https://sheetdb.io/api/v1/q32y963577067?sheet=users',
+                    'https://sheetdb.io/api/v1/egkgu3ao6kbp2?sheet=users',
                     {
-                        phone: phone,
-                        name: name,
-                        created: new Date().toISOString()
+                      phone: phone,
+                      name: name,
+                      created: new Date().toISOString()
                     }
-                );
+                  );                  
                 ctx.reply('Cadastro realizado com sucesso! Deseja marcar uma nova consulta?');
                 userData[userId].state = 'valid';
             } catch (error) {
@@ -187,7 +187,7 @@ bot.on(message(), async (ctx) => {
         else if (verConsultas?.includes(userMsg)) {
             try {
                 const { phone } = userData[userId];
-                const res = await axios.get(`https://sheetdb.io/api/v1/q32y963577067/search?sheet=consultas&phone=*${phone}*`);
+                const res = await axios.get(`https://sheetdb.io/api/v1/egkgu3ao6kbp2/search?sheet=consultas&phone=*${phone}*`);
                 const consult = res.data;
 
                 if (consult && consult.length > 0) {
@@ -218,7 +218,7 @@ bot.on(message(), async (ctx) => {
 
     if (state === 'selecionar') {
         try {
-            const res = await axios.get(`https://sheetdb.io/api/v1/q32y963577067/search?services=*${userMsg}*`);
+            const res = await axios.get(`https://sheetdb.io/api/v1/egkgu3ao6kbp2/search?sheet=consultas&services=*${userMsg}*`);
             const doctor = res.data[0];
             
             if (doctor) {
@@ -254,17 +254,17 @@ bot.on(message(), async (ctx) => {
       if(confirmar && confirmar.includes(userMsg)){
         const { phone } = userData[userId];
         try {
-          await axios.post(
-            'https://sheetdb.io/api/v1/q32y963577067?sheet=consultas',
-            {
-                doctor: userData[userId].doctor,
-                phone: phone,
-                patient: userData[userId].name,
-                date: userData[userId].date,
-                services: userData[userId].service,
-                created: new Date().toISOString()
-            }
-        );
+            await axios.post(
+                'https://sheetdb.io/api/v1/egkgu3ao6kbp2?sheet=consultas',
+                {
+                  doctor: userData[userId].doctor,
+                  phone: phone,
+                  patient: userData[userId].name,
+                  date: userData[userId].date,
+                  services: userData[userId].service,
+                  created: new Date().toISOString()
+                }
+              );
         userData[userId].state = 'valid';
           ctx.reply(`Consulta marcada, deseja ver suas consultas ou encerrar a conversa?`);
         } catch (error) {
