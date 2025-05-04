@@ -248,93 +248,74 @@ const greetings = [
 ];
 
   const removerPedido = [
-    "quero remover um item",
-    "remover pedido",
-    "remover item",
-    "tirar um lanche",
-    "tirar a bebida",
-    "tirar o suco",
-    "tirar batata",
-    "tirar esse",
-    "cancelar pedido",
-    "cancelar item",
-    "não quero mais esse",
-    "não quero mais",
-    "desfazer pedido",
-    "desfaz esse pedido",
-    "excluir item",
-    "excluir pedido",
-    "apaga esse pedido",
-    "apagar pedido",
-    "apaga esse item",
-    "retira esse",
-    "retirar pedido",
-    "retirar item",
-    "não quero esse lanche",
-    "não quero esse item",
-    "não quero refrigerante",
-    "não quero suco",
-    "não quero batata",
-    "não quero mais o pedido",
-    "não desejo mais isso",
-    "tira isso",
-    "tira",
-    "cancela isso",
-    "remove esse item",
-    "remove",
-    "não, tira isso",
-    "não, apaga",
-    "não, cancela",
-    "não, exclui",
-    "não quero mais esse lanche",
-    "não quero mais esse item",
-    "não, não quero mais esse pedido",
-    "não, desfaz",
-    "não, retira",
-    "não, exclui esse",
-    "não, cancela isso",
-    "não, já mudei de ideia",
-    "não, não quero isso agora",
-    "não, não quero esse combo",
-    "não, já pedi errado",
-    "não, esse não",
-    "não, sai esse",
-    "não, retira esse lanche",
-    "não, cancela o que pedi",
-    "não, apaga tudo",
-    "não, refazer pedido",
-    "não quero mais isso",
-    "não quero mais esse combo",
-    "não quero esse pedido",
-    "não quero esse combo",
-    "não, já desisti",
-    "não, me arrependi",
+      "Remover o lanche", "Remova um lanche", "Remova 1 lanche", "Tirar um lanche", "Tire 1 lanche",
+      "Diminuir um lanche", "Diminuir 1 lanche", "Pode tirar um lanche", "Menos um lanche", "Excluir 1 lanche",
+    
+      "Remover o hambúrguer", "Remova um hambúrguer", "Remova 1 hambúrguer", "Tirar um hambúrguer", "Tire 1 hambúrguer",
+      "Diminuir um hambúrguer", "Diminuir 1 hambúrguer", "Pode tirar um hambúrguer", "Menos um hambúrguer", "Excluir 1 hambúrguer",
+    
+      "Remover o dogão", "Remova um dogão", "Remova 1 dogão", "Tirar um dogão", "Tire 1 dogão",
+      "Diminuir um dogão", "Diminuir 1 dogão", "Pode tirar um dogão", "Menos um dogão", "Excluir 1 dogão",
+    
+      "Remover uma batata", "Remova 1 batata", "Tirar uma batata", "Tire 1 batata",
+      "Diminuir uma batata", "Pode tirar uma batata", "Menos uma batata", "Excluir 1 batata",
+    
+      "Remover uma coxinha", "Remova 1 coxinha", "Tirar uma coxinha", "Tire 1 coxinha",
+      "Diminuir uma coxinha", "Pode tirar uma coxinha", "Menos uma coxinha", "Excluir 1 coxinha",
+    
+      "Remover um salgado de salsicha", "Remova 1 salgado de salsicha", "Tirar um salgado de salsicha", "Tire 1 salgado de salsicha",
+      "Diminuir um salgado de salsicha", "Pode tirar um salgado de salsicha", "Excluir 1 salgado de salsicha",
+    
+      "Remover um salgado de calabresa", "Remova 1 salgado de calabresa", "Tirar um salgado de calabresa", "Tire 1 salgado de calabresa",
+      "Diminuir um salgado de calabresa", "Pode tirar um salgado de calabresa", "Excluir 1 salgado de calabresa",
+    
+      "Remover um salgadinho", "Remova 1 salgadinho", "Tirar um salgadinho", "Tire 1 salgadinho",
+      "Diminuir um salgadinho", "Pode tirar um salgadinho", "Excluir 1 salgadinho",
+    
+      "Remover um refrigerante", "Remova 1 refrigerante", "Tirar um refrigerante", "Tire 1 refrigerante",
+      "Diminuir um refrigerante", "Pode tirar um refrigerante", "Excluir 1 refrigerante",
+    
+      "Remover um suco", "Remova 1 suco", "Tirar um suco", "Tire 1 suco",
+      "Diminuir um suco", "Pode tirar um suco", "Excluir 1 suco",
+    
+      "Remover uma água", "Remova 1 água", "Tirar uma água", "Tire 1 água",
+      "Diminuir uma água", "Pode tirar uma água", "Excluir 1 água",
+    
+      "Remover uma coca-cola", "Remova 1 coca-cola", "Tirar uma coca-cola", "Tire 1 coca-cola",
+      "Diminuir uma coca-cola", "Pode tirar uma coca-cola", "Excluir 1 coca-cola",
+    
+      "Remover uma budweiser", "Remova 1 budweiser", "Tirar uma budweiser", "Tire 1 budweiser",
+      "Diminuir uma budweiser", "Pode tirar uma budweiser", "Excluir 1 budweiser",
+    
+      "Remover uma heinekein", "Remova 1 heinekein", "Tirar uma heinekein", "Tire 1 heinekein",
+      "Diminuir uma heinekein", "Pode tirar uma heinekein", "Excluir 1 heinekein",
+    
+      "Remover uma boa", "Remova 1 boa", "Tirar uma boa", "Tire 1 boa",
+      "Diminuir uma boa", "Pode tirar uma boa", "Excluir 1 boa"
+
   
 ];
 
 //marcar consulta
 const pedidos = [
-  "lanche", "hambúrguer", "batata", "refrigerante", "suco",
-  "água", "coca-cola", "budweiser", "heinekein",
-  "dogão", "salgado de salsicha", "coxinha", "salgado de calabresa",
-  "boa", "brahma", "stella", "salgadinho",
+  "Um Lanche", "1 Lanche", "Dois Lanches", "2 Lanches", "Três Lanches", "3 Lanches", "Quatro Lanches", "4 Lanches", "Cinco Lanches", "5 Lanches", "Seis Lanches", "6 Lanches", "Sete Lanches", "7 Lanches", "Oito Lanches", "8 Lanches", "Nove Lanches", "9 Lanches", "Dez Lanches", "10 Lanches",
+"Um Hambúrguer", "1 Hambúrguer", "Dois Hambúrgueres", "2 Hambúrgueres", "Três Hambúrgueres", "3 Hambúrgueres", "Quatro Hambúrgueres", "4 Hambúrgueres", "Cinco Hambúrgueres", "5 Hambúrgueres", "Seis Hambúrgueres", "6 Hambúrgueres", "Sete Hambúrgueres", "7 Hambúrgueres", "Oito Hambúrgueres", "8 Hambúrgueres", "Nove Hambúrgueres", "9 Hambúrgueres", "Dez Hambúrgueres", "10 Hambúrgueres",
+"Um Dogão", "1 Dogão", "Dois Dogões", "2 Dogões", "Três Dogões", "3 Dogões", "Quatro Dogões", "4 Dogões", "Cinco Dogões", "5 Dogões", "Seis Dogões", "6 Dogões", "Sete Dogões", "7 Dogões", "Oito Dogões", "8 Dogões", "Nove Dogões", "9 Dogões", "Dez Dogões", "10 Dogões",
+"Uma Batata", "1 Batata", "Duas Batatas", "2 Batatas", "Três Batatas", "3 Batatas", "Quatro Batatas", "4 Batatas", "Cinco Batatas", "5 Batatas", "Seis Batatas", "6 Batatas", "Sete Batatas", "7 Batatas", "Oito Batatas", "8 Batatas", "Nove Batatas", "9 Batatas", "Dez Batatas", "10 Batatas",
+"Uma Coxinha", "1 Coxinha", "Duas Coxinhas", "2 Coxinhas", "Três Coxinhas", "3 Coxinhas", "Quatro Coxinhas", "4 Coxinhas", "Cinco Coxinhas", "5 Coxinhas", "Seis Coxinhas", "6 Coxinhas", "Sete Coxinhas", "7 Coxinhas", "Oito Coxinhas", "8 Coxinhas", "Nove Coxinhas", "9 Coxinhas", "Dez Coxinhas", "10 Coxinhas",
+"Um Salgado de salsicha", "1 Salgado de salsicha", "Dois Salgados de salsicha", "2 Salgados de salsicha", "Três Salgados de salsicha", "3 Salgados de salsicha", "Quatro Salgados de salsicha", "4 Salgados de salsicha", "Cinco Salgados de salsicha", "5 Salgados de salsicha", "Seis Salgados de salsicha", "6 Salgados de salsicha", "Sete Salgados de salsicha", "7 Salgados de salsicha", "Oito Salgados de salsicha", "8 Salgados de salsicha", "Nove Salgados de salsicha", "9 Salgados de salsicha", "Dez Salgados de salsicha", "10 Salgados de salsicha",
+"Um Salgado de calabresa", "1 Salgado de calabresa", "Dois Salgados de calabresa", "2 Salgados de calabresa", "Três Salgados de calabresa", "3 Salgados de calabresa", "Quatro Salgados de calabresa", "4 Salgados de calabresa", "Cinco Salgados de calabresa", "5 Salgados de calabresa", "Seis Salgados de calabresa", "6 Salgados de calabresa", "Sete Salgados de calabresa", "7 Salgados de calabresa", "Oito Salgados de calabresa", "8 Salgados de calabresa", "Nove Salgados de calabresa", "9 Salgados de calabresa", "Dez Salgados de calabresa", "10 Salgados de calabresa",
+"Um Salgadinho", "1 Salgadinho", "Dois Salgadinhos", "2 Salgadinhos", "Três Salgadinhos", "3 Salgadinhos", "Quatro Salgadinhos", "4 Salgadinhos", "Cinco Salgadinhos", "5 Salgadinhos", "Seis Salgadinhos", "6 Salgadinhos", "Sete Salgadinhos", "7 Salgadinhos", "Oito Salgadinhos", "8 Salgadinhos", "Nove Salgadinhos", "9 Salgadinhos", "Dez Salgadinhos", "10 Salgadinhos",
+"Um Refrigerante", "1 Refrigerante", "Dois Refrigerantes", "2 Refrigerantes", "Três Refrigerantes", "3 Refrigerantes", "Quatro Refrigerantes", "4 Refrigerantes", "Cinco Refrigerantes", "5 Refrigerantes", "Seis Refrigerantes", "6 Refrigerantes", "Sete Refrigerantes", "7 Refrigerantes", "Oito Refrigerantes", "8 Refrigerantes", "Nove Refrigerantes", "9 Refrigerantes", "Dez Refrigerantes", "10 Refrigerantes",
+"Um Suco", "1 Suco", "Dois Sucos", "2 Sucos", "Três Sucos", "3 Sucos", "Quatro Sucos", "4 Sucos", "Cinco Sucos", "5 Sucos", "Seis Sucos", "6 Sucos", "Sete Sucos", "7 Sucos", "Oito Sucos", "8 Sucos", "Nove Sucos", "9 Sucos", "Dez Sucos", "10 Sucos",
+"Uma Água", "1 Água", "Duas Águas", "2 Águas", "Três Águas", "3 Águas", "Quatro Águas", "4 Águas", "Cinco Águas", "5 Águas", "Seis Águas", "6 Águas", "Sete Águas", "7 Águas", "Oito Águas", "8 Águas", "Nove Águas", "9 Águas", "Dez Águas", "10 Águas",
+"Uma Coca-cola", "1 Coca-cola", "Duas Coca-colas", "2 Coca-colas", "Três Coca-colas", "3 Coca-colas", "Quatro Coca-colas", "4 Coca-colas", "Cinco Coca-colas", "5 Coca-colas", "Seis Coca-colas", "6 Coca-colas", "Sete Coca-colas", "7 Coca-colas", "Oito Coca-colas", "8 Coca-colas", "Nove Coca-colas", "9 Coca-colas", "Dez Coca-colas", "10 Coca-colas",
+"Uma Budweiser", "1 Budweiser", "Duas Budweisers", "2 Budweisers", "Três Budweisers", "3 Budweisers", "Quatro Budweisers", "4 Budweisers", "Cinco Budweisers", "5 Budweisers", "Seis Budweisers", "6 Budweisers", "Sete Budweisers", "7 Budweisers", "Oito Budweisers", "8 Budweisers", "Nove Budweisers", "9 Budweisers", "Dez Budweisers", "10 Budweisers",
+"Uma Heinekein", "1 Heinekein", "Duas Heinekeins", "2 Heinekeins", "Três Heinekeins", "3 Heinekeins", "Quatro Heinekeins", "4 Heinekeins", "Cinco Heinekeins", "5 Heinekeins", "Seis Heinekeins", "6 Heinekeins", "Sete Heinekeins", "7 Heinekeins", "Oito Heinekeins", "8 Heinekeins", "Nove Heinekeins", "9 Heinekeins", "Dez Heinekeins", "10 Heinekeins",
+"Uma Boa", "1 Boa", "Duas Boas", "2 Boas", "Três Boas", "3 Boas", "Quatro Boas", "4 Boas", "Cinco Boas", "5 Boas", "Seis Boas", "6 Boas", "Sete Boas", "7 Boas", "Oito Boas", "8 Boas", "Nove Boas", "9 Boas", "Dez Boas", "10 Boas",
+"Uma Brahma", "1 Brahma", "Duas Brahmas", "2 Brahmas", "Três Brahmas", "3 Brahmas", "Quatro Brahmas", "4 Brahmas", "Cinco Brahmas", "5 Brahmas", "Seis Brahmas", "6 Brahmas", "Sete Brahmas", "7 Brahmas", "Oito Brahmas", "8 Brahmas", "Nove Brahmas", "9 Brahmas", "Dez Brahmas", "10 Brahmas",
+"Uma Stella", "1 Stella", "Duas Stellas", "2 Stellas", "Três Stellas", "3 Stellas", "Quatro Stellas", "4 Stellas", "Cinco Stellas", "5 Stellas", "Seis Stellas", "6 Stellas", "Sete Stellas", "7 Stellas", "Oito Stellas", "8 Stellas", "Nove Stellas", "9 Stellas", "Dez Stellas", "10 Stellas",
 
-  "uma coxinha", "duas coxinhas", "três coxinhas", "quatro coxinhas", "cinco coxinhas", "seis coxinhas", "sete coxinhas", "oito coxinhas", "nove coxinhas", "dez coxinhas",
-  "uma batata", "duas batatas", "três batatas", "quatro batatas", "cinco batatas", "seis batatas", "sete batatas", "oito batatas", "nove batatas", "dez batatas",
-  "um hambúrguer", "dois hambúrgueres", "três hambúrgueres", "quatro hambúrgueres", "cinco hambúrgueres", "seis hambúrgueres", "sete hambúrgueres", "oito hambúrgueres", "nove hambúrgueres", "dez hambúrgueres",
-  "um refrigerante", "dois refrigerantes", "três refrigerantes", "quatro refrigerantes", "cinco refrigerantes", "seis refrigerantes", "sete refrigerantes", "oito refrigerantes", "nove refrigerantes", "dez refrigerantes",
-  "um suco", "dois sucos", "três sucos", "quatro sucos", "cinco sucos", "seis sucos", "sete sucos", "oito sucos", "nove sucos", "dez sucos",
-  "uma água", "duas águas", "três águas", "quatro águas", "cinco águas", "seis águas", "sete águas", "oito águas", "nove águas", "dez águas",
-  "uma coca-cola", "duas coca-colas", "três coca-colas", "quatro coca-colas", "cinco coca-colas", "seis coca-colas", "sete coca-colas", "oito coca-colas", "nove coca-colas", "dez coca-colas",
-  "uma budweiser", "duas budweisers", "três budweisers", "quatro budweisers", "cinco budweisers", "seis budweisers", "sete budweisers", "oito budweisers", "nove budweisers", "dez budweisers",
-  "uma heinekein", "duas heinekeins", "três heinekeins", "quatro heinekeins", "cinco heinekeins", "seis heinekeins", "sete heinekeins", "oito heinekeins", "nove heinekeins", "dez heinekeins",
-  "um dogão", "dois dogões", "três dogões", "quatro dogões", "cinco dogões", "seis dogões", "sete dogões", "oito dogões", "nove dogões", "dez dogões",
-  "um salgado de salsicha", "dois salgados de salsicha", "três salgados de salsicha", "quatro salgados de salsicha", "cinco salgados de salsicha", "seis salgados de salsicha", "sete salgados de salsicha", "oito salgados de salsicha", "nove salgados de salsicha", "dez salgados de salsicha",
-  "um salgado de calabresa", "dois salgados de calabresa", "três salgados de calabresa", "quatro salgados de calabresa", "cinco salgados de calabresa", "seis salgados de calabresa", "sete salgados de calabresa", "oito salgados de calabresa", "nove salgados de calabresa", "dez salgados de calabresa",
-  "uma boa", "duas boas", "três boas", "quatro boas", "cinco boas", "seis boas", "sete boas", "oito boas", "nove boas", "dez boas",
-  "uma brahma", "duas brahmas", "três brahmas", "quatro brahmas", "cinco brahmas", "seis brahmas", "sete brahmas", "oito brahmas", "nove brahmas", "dez brahmas",
-  "uma stella", "duas stellas", "três stellas", "quatro stellas", "cinco stellas", "seis stellas", "sete stellas", "oito stellas", "nove stellas", "dez stellas",
-  "um salgadinho", "dois salgadinhos", "três salgadinhos", "quatro salgadinhos", "cinco salgadinhos", "seis salgadinhos", "sete salgadinhos", "oito salgadinhos", "nove salgadinhos", "dez salgadinhos"
 ];
 //ver consulta
 const verPedido = [
@@ -1355,6 +1336,7 @@ const pedirCardapio = [
 ];
 
 
+
 // Exporte as listas para uso em outros arquivos usando CommonJS
 module.exports = {
   pedirCardapio,
@@ -1365,4 +1347,5 @@ module.exports = {
   confirmarPedido,
   encerrar,
   perguntarNomeBot,
+
 };
