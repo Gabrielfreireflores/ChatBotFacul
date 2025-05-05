@@ -1,6 +1,23 @@
 //array inicial
 const greetings = [
-  "oi",
+  "eae mano", "boa parceiro", "eae truta", "salve mano", "fala parceiro",
+  "eai meu chapa", "eai meu mano", "fala irmão", "eae fera", "fala chefe",
+  "eae doido", "eae lenda", "fala patrão", "salve guerreiro", "eae meu rei",
+  "eae camarada", "salve salve", "fala mermão", "opa chefe", "opa mano",
+  "bom dia meu rei", "boa noite fera", "eae campeão", "eae mitão", "fala fera braba",
+  "eae negão", "salve meu consagrado", "eae monstro", "fala brabo", "salve do bem",
+  "oi", "eae mano", "boa parceiro", "eae truta", "salve mano", "fala parceiro",
+  "eai meu chapa", "eai meu mano", "fala irmão", "eae fera", "fala chefe",
+  "eae doido", "eae lenda", "fala patrão", "salve guerreiro", "eae meu rei",
+  "eae camarada", "salve salve", "fala mermão", "opa chefe", "opa mano",
+  "bom dia meu rei", "boa noite fera", "eae campeão", "eae mitão", "fala fera braba",
+  "eae negão", "salve meu consagrado", "eae monstro", "fala brabo", "salve do bem",
+  "salve doutor", "olá doutor", "opa doutor", "fala doutor", "salve meu doutor",
+  "eae meu consagrado", "opa irmão", "fala irmãozinho", "fala meu chapa", "salve irmão", "salve", "boa",
+  ,"boa irmão", "boa irmao", "slv","salve truta", "boa comedia", "boa comedinha", "slv mulekoti",
+  "salve filhao", "boa mlk", "eae guerreiro", "iai", "eae cara", "boa truta",
+
+  "eae","eae irmao", "eae irmão","salve parceria","boa meu irmao","boa truta",
   "ola",
   "oi tudo bem",
   "bom dia",
@@ -319,7 +336,17 @@ const pedidos = [
 ];
 //ver consulta
 const verPedido = [
-"ver",
+"ver","ver o pedido", "quero ver o pedido", "o que eu pedi", "quero saber o que pedi", "me mostra o pedido",
+"tem como ver o pedido", "o que foi pedido", "ver o que pedi", "meu pedido", "mostrar meu pedido",
+"mostra o que pedi", "quero saber meu pedido", "confere meu pedido", "mostrar tudo que pedi", "mostra meus pedidos",
+"tem pedido pra mim", "tem algo pra mim", "tem pedido agendado", "pedido está certo", "ver pedido completo",
+"ver o resumo do pedido", "ver histórico", "meu histórico", "tem pedido feito", "tem pedido confirmado",
+"me mostra o que foi agendado", "quais pedidos fiz", "quais são meus pedidos", "o que já pedi", "pedido que fiz",
+"meu pedido atual", "revisar pedido", "consultar pedido", "consultar o que pedi", "ver itens pedidos",
+"visualizar pedido", "olhar pedido", "olhar histórico", "pedi o que", "fiz qual pedido",
+"o que deixei marcado", "mostra o que marquei", "resumo do que pedi", "tem algo marcado", "tem agendamento feito",
+"mostrar reservas", "mostrar itens pedidos", "mostrar o que solicitei", "ver solicitação", "listar meu pedido"
+,
 "quero ver um pedido",
 "quero ver meus pedidos",
 "quero ver",
@@ -363,7 +390,14 @@ const verPedido = [
 
 //confirmar a consulta => sim
 const confirmarPedido = [
-  "confirmar",
+  "nada mais, confirma pra mim",
+  "é isso mesmo, obrigado","quero mais nada não, isso mesmo","quero mais nada nao",
+  "obrigado irmao, e isso mesmo", "beleza, isso mesmo","beleza isso mesmo",
+  "fecha a conta",
+  "maravilha, fecha pra nos",
+  "traz a conta garçom",
+  "beleza mano, fecha pra mim", "autorizado, pode fechar","confirma o pedido", "fechado",
+  "confirmar", "marca pra mim", "ok paizao", "traz a conta", "quero pagar", "quero comprar",
   "confirmae",
   "confirma",
   "pode pa",
@@ -407,21 +441,13 @@ const confirmarPedido = [
 ];
 
 const encerrar = [
-"obrigado",
-"obg",
-"ok, obrigado",
+  "pode encerrar","pode finalizar", "ta bom, ja deu","ta bom ja deu","e isso mesmo pode finalizar",
+  "encerra o atendimento",
+  "beleza termina o atendimento",
 "preciso que encerre",
 "quero encerrar",
 "chega",
 "flw",
-"ok obrigado",
-"okay",
-"ok valeu",
-"ok meu irmao",
-"ok, obg",
-"ok, perfeito",
-"ok, tamo junto",
-"ok",
 "pode encerrar",
 "até mais",
 "valeu",
@@ -1266,7 +1292,11 @@ const encerrar = [
 "terminar sessão agora"
 ];
 const perguntarNomeBot = [
-  // Perguntas diretas
+  "quem e voce irmao",
+  "com quem falo?",
+  "com quem falo",
+  "qual seu nome",
+  "como se chama",
   "qual seu nome?",
   "Qual seu nome",
   "Com que eu falo?",
@@ -1298,6 +1328,16 @@ const perguntarNomeBot = [
 ];
 
 const pedirCardapio = [
+  "quero sim", // resposta para primeira saudação
+  "o que tem de legal",
+  "o que tem pra hoje",
+  "o que tem para hoje",
+  "manda a boa",
+  "qual a boa de hoje",
+  "que tem de bom",
+  "qq tem de bom",
+  "q tem de bom?",
+  "q tem de bom",
   "quero ver o cardapio",
   "cardapio",
   "o que tem de bom?",
@@ -1335,6 +1375,28 @@ const pedirCardapio = [
   "quais são as opções sem lactose?",
 ];
 
+const agradecimentos = [
+  "obrigado", "valeu", "agradecido", "muito obrigado", "obrigadão", 
+  "grato", "muito grato", "obrigada", "valeu mesmo", "valeu demais", 
+  "obrigadíssimo", "agradeço", "fico grato", "valeu cara", "valeu irmão", 
+  "muitíssimo obrigado", "obrigado de coração", "valeu de verdade", "sou grato", "muito obrigada", 
+  "gratidão", "agradeço muito", "obrigado parceiro", "valeu parceiro", "valeu mano", 
+  "valeu bro", "valeu mermão", "brigadão", "brigado", "valeu fera", 
+  "valeu chefia", "obrigado mesmo", "valeu pela força", "valeu pela moral", "valeu pela ajuda", 
+  "obrigado pela força", "obrigado pela moral", "obrigado pela ajuda", "valeu meu bom", "valeu meu rei", 
+  "muito agradecido", "muitíssimo agradecido", "muito obrigadão", "valeu véi", "obrigado véi", 
+  "valeu irmãozinho", "valeu querido", "valeu meu chapa", "valeu meu camarada", "valeu fera demais", 
+  "obrigado fera", "valeu negão", "obrigado negão", "valeu queridão", "valeu man", 
+  "obrigado man", "obrigado irmão", "valeu amigo", "obrigado amigo", "valeu amiguinho", 
+  "valeu campeão", "obrigado campeão", "valeu patrão", "obrigado patrão", "valeu parceiro velho", 
+  "obrigado campeão demais", "valeu grande", "valeu titio", "valeu maninho", "obrigado maninho", 
+  "obrigado titio", "valeu tio", "valeu tia", "obrigado tia", "valeu senhor", 
+  "valeu senhora", "obrigado senhor", "obrigado senhora", "valeu moço", "valeu moça", 
+  "obrigado moço", "obrigado moça", "valeu demais mesmo", "valeu por tudo", "obrigado por tudo", 
+  "muito obrigado por tudo", "valeu por hoje", "valeu por agora", "obrigado por agora", "valeu pela atenção", 
+  "obrigado pela atenção", "valeu mano velho", "obrigado meu mano", "valeu véi doido", "obrigado doido", 
+  "valeu parceiro de guerra", "obrigado guerreiro", "valeu guerreiro", "valeu meu rei do gado", "valeu lenda"
+];
 
 
 // Exporte as listas para uso em outros arquivos usando CommonJS
@@ -1347,5 +1409,6 @@ module.exports = {
   confirmarPedido,
   encerrar,
   perguntarNomeBot,
+  agradecimentos,
 
 };
