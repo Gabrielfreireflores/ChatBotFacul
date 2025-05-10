@@ -2,7 +2,7 @@ require('dotenv').config();
 const axios = require("axios");
 const { Telegraf } = require("telegraf");
 const { message } = require("telegraf/filters");
-const { removerPedido, pedidos, verPedido, greetings, confirmarPedido, encerrar, perguntarNomeBot, pedirCardapio, agradecimentos } = require("./intents");
+const { removerPedido, pedidos, verPedido, greetings, confirmarPedido, encerrar, perguntarNomeBot, pedirCardapio, agradecimentos, pagamentos, perguntarHorario, perguntarLocal } = require("./intents");
 
 // Verificação do token 
 if (!process.env.BOT_TOKEN) {
@@ -110,7 +110,7 @@ bot.on('text', async (ctx) => {
   }
 
   //Inicialização solicitando o cardapio
-  if (userData[userId].state === 'aguardando_confirmacao_cardapio' && ['sim', 'quero','Quero','Sim', 'Mostra', 'mostra', 'ok'].includes(userMsg)) {
+  if (userData[userId].state === 'aguardando_confirmacao_cardapio' && ['sim', 'quero','Quero','Sim', 'Mostra', 'mostra', 'ok', 'claro', 'Claro'].includes(userMsg)) {
     userData[userId].state = 'start';
     return ctx.reply(itensDisponiveis, { parse_mode: 'Markdown' });
   }
@@ -135,6 +135,18 @@ bot.on('text', async (ctx) => {
     userData[userId].state = 'init';
     return ctx.reply('Nós quem agradecemos truta.\n\n Precisando de mais alguma coisa só me chamar ✌️🐌');
   }
+
+  if (pagamentos.some(p => userMsg.includes(p))) {
+    return ctx.reply("Nosso bar trabalha com os seguintes formatos:\nPix\nDinheiro\nCartão débito ou crédito\n\nSó passar no balcão e acertar 😎✌️");
+  } 
+
+  if (perguntarLocal.some(p => userMsg.includes(p))) {
+      return ctx.reply("O bar fica ao lado da Fatec, R. Visc. De Inhomirim, 885 na Vila Virgínia! ");
+  }// bloco de codigo local, adicionado pelo gui
+    
+  if (perguntarHorario.some(p => userMsg.includes(p))) {
+    return ctx.reply("Nosso horário de funcionamento é das 18h até as 22:30, de Segunda à Sexta. ");
+  }// bloco de codigo horario, adicionado pelo gui
 
   //Solicitação para ver o pedido.
   if (verPedido.includes(userMsg)) {
